@@ -1,0 +1,123 @@
+main p a {
+	@apply underline underline-dotted;
+}
+
+body {
+	--nv-root-top: 5em;
+	@apply bg-light-500 transition overflow-x-hidden min-h-100vh hyphens-auto;
+}
+
+#__nuxt {
+	@apply min-h-100vh flex flex-col overflow-y-clip;
+}
+
+.dark body {
+	@apply bg-dark-700 transition duration-1000 text-light-700;
+}
+
+.page {
+	transition: all ease-in-out 0.12s;
+}
+
+.page-enter-active,
+.page-leave-active {
+	transition: all ease-in-out 0.12s;
+}
+
+.page-leave-to {
+	opacity: 0.4;
+	filter: blur(0.1rem);
+	transform: translate(-4px, 0px);
+}
+
+.page-enter-from {
+	opacity: 0.4;
+	filter: blur(0.1rem);
+	transform: translate(4px, 0);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 1s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
+}
+
+.form input[type="text"],
+.form input[type="password"],
+.form textarea {
+	@apply border-1 border-dark-300 border-op-40 dark-border-light-300 dark-border-op-40 p-2 text-lg rounded-lg bg-light-200 dark-bg-dark-100;
+	flex: 1 1 200px;
+}
+
+button.button {
+	@apply p-4 rounded-xl bg-purple-500 shadow-xl text-xl;
+}
+
+button.button:disabled {
+	@apply op-60 hover-op-70;
+}
+
+.form label {
+	@apply p-2 text-lg flex-1 text-right;
+}
+
+pre {
+	@apply p-4 max-w-full;
+}
+
+html {
+	@apply overscroll-y-none;
+	font-family: var(--font-family-base);
+}
+
+.glass {
+	@apply transition bg-light-200 dark-bg-dark-300 rounded-lg shadow-lg hover-shadow-xl filter backdrop-blur hover-backdrop-blur-xl;
+}
+
+.dark .glass {
+	@apply dark-bg-dark-500;
+}
+
+/* Fonts */
+
+:root {
+	--font-family-base: "Commissioner", -apple-system, BlinkMacSystemFont,
+		"Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+		"Helvetica Neue", sans-serif;
+	--font-family-mono: "Fira Code", source-code-pro, Menlo, Monaco, Consolas,
+		"Courier New", monospace;
+}
+
+@font-face {
+	font-family: "Commissioner";
+	font-style: normal;
+	font-weight: 400;
+	src: local(""),
+		url("/fonts/commissioner-v3-latin_cyrillic-ext_cyrillic-regular.woff2")
+			format("woff2"),
+		/* Chrome 26+, Opera 23+, Firefox 39+ */
+			url("/fonts/commissioner-v3-latin_cyrillic-ext_cyrillic-regular.woff")
+			format("woff");
+	/* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+@font-face {
+	font-family: "Commissioner";
+	font-style: normal;
+	font-weight: 700;
+	src: local(""),
+		url("/fonts/commissioner-v3-latin_cyrillic-ext_cyrillic-700.woff2")
+			format("woff2"),
+		/* Chrome 26+, Opera 23+, Firefox 39+ */
+			url("/fonts/commissioner-v3-latin_cyrillic-ext_cyrillic-700.woff")
+			format("woff");
+	/* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+.prose h2:first-child {
+	@apply mt-4;
+}
