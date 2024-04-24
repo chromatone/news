@@ -2,61 +2,8 @@ import { createDirectus, readItems, rest, staticToken } from '@directus/sdk'
 
 const collections = {
   members: ['members', {
-    fields: ['*', 'user.*',]
+    // fields: ['*', 'user.*',]
   }],
-  team: ['members', {
-    fields: ['*', 'user.*'],
-    filter: {
-      team: {
-        _nnull: true
-      }
-    }
-  }],
-  students: ['members', {
-    fields: ['*', 'user.*'],
-    filter: {
-      student: {
-        _nnull: true
-      }
-    }
-  }],
-  courses: ['courses', {
-    fields: ['*', 'program.title', 'program.slug']
-  }],
-  crafts: [
-    'crafts',
-    {
-      sort: ['sort'],
-      fields: ['*']
-    }
-  ],
-  skills: [
-    'skills',
-    {
-      sort: ['sort'],
-      fields: ['*']
-    }
-  ],
-  programs: [
-    'programs',
-    {
-      sort: ['sort'],
-      fields: ['slug', 'color', 'projects', 'title', 'description', 'cover', 'courses']
-    }],
-  projects: [
-    'projects',
-    {
-      sort: ['sort'],
-      fields: ['slug', 'color', 'title', 'description', 'cover', 'courses', 'events', {
-        program: ['title', 'slug']
-      }]
-    }],
-  docs: [
-    'academy_docs',
-    {
-      sort: ['sort'],
-      fields: ['*']
-    }],
   newsletters: [
     'newsletters',
     {
@@ -77,7 +24,9 @@ export default defineEventHandler(async event => {
   const collection = getRouterParam(event, 'collection')
   const config = useRuntimeConfig()
 
-  db = db || createDirectus(config.public.dbUrl).with(rest()).with(staticToken(config.dbManagerKey))
+  db = db || createDirectus(config.public.dbUrl).with(rest()).with(staticToken(config.apiToken))
+
+  console.log('reading', collection)
 
   if (collections[collection]) {
     try {

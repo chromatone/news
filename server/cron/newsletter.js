@@ -3,12 +3,10 @@ import { createDirectus, createItem, readItems, rest, staticToken } from '@direc
 import nodemailer from 'nodemailer'
 import { useCompiler } from '#vue-email'
 
-let db
-
-export default defineCronHandler('everyMinute', async () => {
+export default defineCronHandler('hourly', async () => {
 
   const config = useRuntimeConfig()
-  db = db || createDirectus(config.public.dbUrl).with(rest()).with(staticToken(config.dbManagerKey))
+  const db = createDirectus(config.public.dbUrl).with(rest()).with(staticToken(config.apiToken))
 
   const issues = await db.request(readItems('newsletter_issues', {
     fields: ['id', 'title', 'description', 'content', 'recipients.members_id', 'newsletter.from', {
@@ -25,13 +23,6 @@ export default defineCronHandler('everyMinute', async () => {
 
   if (issues.length == 0) return console.log('no active newsletter issues')
 
-  const members = await db.request(readItems('members', {
-    fields: ['id', 'user.email'],
-    filter: {
-      newsletter: true
-    }
-  }))
-
   const transporter = nodemailer.createTransport({
     host: config.emailSmtpHost,
     port: config.emailSmtpPort,
@@ -42,37 +33,54 @@ export default defineCronHandler('everyMinute', async () => {
     },
   })
 
-  issues.forEach(async issue => {
+  const members = await db.request(readItems('members', {
+    fields: ['id', 'user.email', 'user.first_name', 'user.last_name', 'newsletter_issues.*'],
+    filter: {
+      newsletter: true,
+    }
+  }))
 
-    const template = await useCompiler('news.vue', {
-      props: {
-        name: 'DEMO'
-      }
-    })
+  for (let issue of issues) {
 
-    const recipients = members.filter(m => !issue.recipients.map(l => l.members_id).includes(m.id)).slice(0, 2).forEach(async r => {
+    const recipients = members.filter(member => !issue.recipients.map(l => l.members_id).includes(member.id))
+
+    for (let recipient of recipients) {
+
+      const template = await useCompiler('news.vue', {
+        props: {
+          name: recipient?.user?.first_name + ' ' + recipient?.user?.last_name,
+          title: issue?.title,
+          newsletter: issue?.newsletter,
+          content: issue?.content,
+          news: issue?.news
+        }
+      })
+
       const options = {
         from: issue?.newsletter?.from,
-        to: r.user?.email,
-        subject: issue.title,
+        to: recipient.user?.email,
+        subject: issue?.newsletter?.title + ': ' + issue.title,
         html: template.html,
         headers: {
           'Precedence': 'bulk',
-          'List-Unsubscribe': `<${issue?.unsubscribeUrl}>`, // Use unsubscribe URL from request body
+          'List-Unsubscribe': `<${config.public.appDomain}/unsubscribe?id=${recipient?.id}>`, // Use unsubscribe URL from request body
         },
       }
 
-      setTimeout(async () => {
-        await transporter.sendMail(options)
-        await db.request(createItem('newsletter_recipients', {
-          newsletter_issues_id: issue.id,
-          members_id: r.id
-        }))
-        console.log('SENT')
-      }, Math.random() * 1000 * 30)
+      await transporter.sendMail(options)
 
-    })
+      await db.request(createItem('newsletter_recipients', {
+        newsletter_issues_id: issue.id,
+        members_id: recipient.id
+      }))
 
-  })
+      console.log(`Sent ${issue?.title} to ${recipient?.user?.email}`)
+
+      await delayPromise(3000 + Math.random() * 10000);
+    }
+  }
 
 }, { runOnInit: true })
+
+
+const delayPromise = (ms) => new Promise(resolve => setTimeout(resolve, ms));

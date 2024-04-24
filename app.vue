@@ -29,8 +29,6 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
 })
 
-const { loggedIn, user, session, clear } = useUserSession()
-
 </script>
 
 <template lang="pug">

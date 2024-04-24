@@ -29,11 +29,7 @@ export default defineNuxtConfig({
     token: process.env?.NUXT_PUBLIC_ACADEMY_KEY
   },
   runtimeConfig: {
-    dbManagerKey: '',
-    stripeSecretKey: '',
-    stripeWebhookSecret: '',
     apiToken: '',
-    emailHook: '',
     emailFrom: '',
     emailSmtpHost: '',
     emailSmtpPort: '',
@@ -44,16 +40,13 @@ export default defineNuxtConfig({
       appDomain: '',
       dbUrl: '',
       dbToken: '',
-      academyKey: '',
       umamiId: '',
       umamiUrl: '',
-      subscriptionsOpen: '',
     }
   },
   modules: [
     'nuxt-auth-utils',
     "@unocss/nuxt",
-    "nuxt-directus",
     "@nuxtjs/sitemap",
     '@nuxtjs/mdc',
     '@nuxt/image',

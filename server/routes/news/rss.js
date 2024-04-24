@@ -1,4 +1,4 @@
-import { readItems } from '@directus/sdk';
+import { createDirectus, readItems, rest, staticToken } from '@directus/sdk';
 import RSS from 'rss';
 
 export default defineEventHandler(async event => {
@@ -9,7 +9,9 @@ export default defineEventHandler(async event => {
     feed_url: `https://academy.chromatone.center/rss`,
   });
 
-  const db = usePublicDirectus()
+  const config = useRuntimeConfig()
+
+  const db = createDirectus(config.public.dbUrl).with(rest()).with(staticToken(config.apiToken))
 
   const news = await db.request(readItems('news', {
     field: ['title', 'description', 'date_created', 'slug']
