@@ -1,5 +1,5 @@
-# Chromatone Academy
+# Chromatone Academy newsletter management system
 
-## Nuxt + Directus LMS Web App
+We are sending news via SMTP via nodemailer. Email templates are from vue-mail and news are coming from our Directus database API.
 
-This project is a thin layer of highly efficient JS server code that builds UI and API for our Directus Database, that we use to manage things here at Chromatone.
+<https://vuemail.net/>
