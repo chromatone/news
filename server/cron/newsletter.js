@@ -1,5 +1,5 @@
 import { defineCronHandler } from '#nuxt/cron'
-import { createDirectus, createItem, readItems, rest, staticToken } from '@directus/sdk'
+import { createDirectus, createItem, readItems, rest, staticToken, readSingleton } from '@directus/sdk'
 import nodemailer from 'nodemailer'
 import { useCompiler } from '#vue-email'
 
@@ -19,6 +19,10 @@ export default defineCronHandler('hourly', async () => {
         _eq: 'published'
       }
     }
+  }))
+
+  const academy = await db.request(readSingleton('academy', {
+    fields: ['discord_invite']
   }))
 
   if (issues.length == 0) return console.log('no active newsletter issues')
@@ -49,10 +53,12 @@ export default defineCronHandler('hourly', async () => {
       const template = await useCompiler('news.vue', {
         props: {
           name: recipient?.user?.first_name + ' ' + recipient?.user?.last_name,
+          memberId: recipient?.id,
           title: issue?.title,
           newsletter: issue?.newsletter,
           content: issue?.content,
-          news: issue?.news
+          news: issue?.news,
+          discordInvite: academy?.discord_invite
         }
       })
 
