@@ -5,6 +5,9 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: 'page', mode: 'out-in' }
   },
+  devServer: {
+    port: 3032
+  },
   site: {
     url: 'https://news.chromatone.center'
   },
@@ -30,6 +33,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     apiToken: '',
+    usersDbToken: '',
+    usersDbDomain: '',
     emailFrom: '',
     emailSmtpHost: '',
     emailSmtpPort: '',
