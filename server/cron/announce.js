@@ -12,7 +12,7 @@ export default defineCronHandler('hourly', async () => {
 
   const users = await db.request(readItems('users', {
     fields: ['*', 'sends.*'],
-    limit: 5,
+    limit: 10,
     sort: ['-date_created'],
     filter: {
       sends: {
@@ -25,9 +25,6 @@ export default defineCronHandler('hourly', async () => {
     }
   }))
 
-  console.log(users)
-
-  return
 
   const transporter = nodemailer.createTransport({
     host: config.emailSmtpHost,
@@ -41,7 +38,6 @@ export default defineCronHandler('hourly', async () => {
 
 
   for (let user of users) {
-
     const template = await useCompiler('tutor.vue', {
       props: {
         name: user?.name,
@@ -51,11 +47,11 @@ export default defineCronHandler('hourly', async () => {
     const options = {
       from: 'bot@chromatone.center',
       to: user?.email,
-      subject: 'Chromatone announcement',
+      subject: 'Chromatone Tutorship starting',
       html: template.html,
       headers: {
         'Precedence': 'bulk',
-        'List-Unsubscribe': `<${config.public.appDomain}/unsubscribe?id=${1}>`, // Use unsubscribe URL from request body
+        'List-Unsubscribe': `<${config.public.appDomain}/unsubscribe_address?email=${user?.email}>`,
       },
     }
 
@@ -70,7 +66,6 @@ export default defineCronHandler('hourly', async () => {
 
     await delayPromise(3000 + Math.random() * 10000);
   }
-
 
 }, { runOnInit: true })
 
