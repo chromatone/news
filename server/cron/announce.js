@@ -3,11 +3,11 @@ import { createDirectus, createItem, readItems, rest, staticToken, readSingleton
 import nodemailer from 'nodemailer'
 import { useCompiler } from '#vue-email'
 
-const title = 'announcement'
+const title = 'tutorship'
 
-const debug = true
+const debug = false
 
-export default defineCronHandler('hourly', async () => {
+export default defineCronHandler('everyFifteenMinutes', async () => {
 
   const config = useRuntimeConfig()
   const db = createDirectus(config.usersDbDomain).with(rest()).with(staticToken(config.usersDbToken))
@@ -15,8 +15,11 @@ export default defineCronHandler('hourly', async () => {
   const users = await db.request(readItems('users', {
     fields: ['*', 'sends.*'],
     limit: 10,
-    sort: ['-date_created'],
+    sort: ['date_created'],
     filter: {
+      status: {
+        _neq: 'spam'
+      },
       sends: {
         _none: {
           title: {
