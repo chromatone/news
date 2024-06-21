@@ -5,6 +5,8 @@ import { useCompiler } from '#vue-email'
 
 const title = 'announcement'
 
+const debug = true
+
 export default defineCronHandler('hourly', async () => {
 
   const config = useRuntimeConfig()
@@ -54,7 +56,10 @@ export default defineCronHandler('hourly', async () => {
         'List-Unsubscribe': `<${config.public.appDomain}/unsubscribe_address?email=${user?.email}>`,
       },
     }
-
+    if (debug) {
+      console.log('Debug send: ', user?.email)
+      return
+    }
     await transporter.sendMail(options)
 
     await db.request(createItem('sends', {
