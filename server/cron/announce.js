@@ -18,7 +18,7 @@ export default defineCronHandler('everyFifteenMinutes', async () => {
     sort: ['date_created'],
     filter: {
       status: {
-        _neq: 'spam'
+        _nin: ['spam', 'archived']
       },
       sends: {
         _none: {
@@ -29,6 +29,8 @@ export default defineCronHandler('everyFifteenMinutes', async () => {
       }
     }
   }))
+
+  console.log(`New batch of ${users.length} emails is ready to be sent`)
 
 
   const transporter = nodemailer.createTransport({
@@ -70,10 +72,13 @@ export default defineCronHandler('everyFifteenMinutes', async () => {
       title
     }))
 
-    console.log(`Sent ${title} to ${user?.email}`)
+    let delay = 3 + Math.random() * 10
 
-    await delayPromise(3000 + Math.random() * 10000);
+    console.log(`Sent ${title} to ${user?.email}.  Waiting ${delay.toFixed(1)}s before next.`)
+
+    await delayPromise(delay * 1000);
   }
+  console.log('Batch successfully sent. Sleeping until next one.')
 
 }, { runOnInit: true })
 
