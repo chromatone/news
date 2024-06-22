@@ -83,7 +83,6 @@ export default defineCronHandler(frequency, async () => {
 
     await db.request(createItem('sends', {
       user: user.id,
-      title,
       issue: issueId
     }))
 
