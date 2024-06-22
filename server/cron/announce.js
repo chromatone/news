@@ -1,5 +1,5 @@
 import { defineCronHandler } from '#nuxt/cron'
-import { createDirectus, createItem, readItems, rest, staticToken, readSingleton } from '@directus/sdk'
+import { createDirectus, createItem, readItems, rest, staticToken, readSingleton, readItem } from '@directus/sdk'
 import nodemailer from 'nodemailer'
 import { useCompiler } from '#vue-email'
 
@@ -7,18 +7,32 @@ const title = 'tutorship'
 
 const debug = false
 
-export default defineCronHandler('everyFifteenMinutes', async () => {
+const frequency = 'everyFifteenMinutes'
+
+const issueId = '447eee5b-4c6b-4ed3-9fcb-1887f1cfa78e'
+
+export default defineCronHandler(frequency, async () => {
 
   const config = useRuntimeConfig()
   const db = createDirectus(config.usersDbDomain).with(rest()).with(staticToken(config.usersDbToken))
 
+  const issue = await db.request(readItem('issues', issueId, {
+    fields: ['id', 'status']
+  }))
+
+
+  if (issue.status != 'published') {
+    console.log('The newsletter is not published yet. Terminating sender.')
+    return
+  }
+
   const users = await db.request(readItems('users', {
     fields: ['*', 'sends.*'],
-    limit: 10,
+    limit: 5,
     sort: ['date_created'],
     filter: {
       status: {
-        _nin: ['spam', 'archived']
+        _nin: ['spam', 'archived', 'unsubscribed']
       },
       sends: {
         _none: {
@@ -62,23 +76,25 @@ export default defineCronHandler('everyFifteenMinutes', async () => {
       },
     }
     if (debug) {
-      console.log('Debug send: ', user?.email)
+      console.log('Debug send and terminate: ', user?.email)
       return
     }
     await transporter.sendMail(options)
 
     await db.request(createItem('sends', {
       user: user.id,
-      title
+      title,
+      issue: issueId
     }))
 
-    let delay = 3 + Math.random() * 10
+
+    let delay = 10 + Math.random() * 30
 
     console.log(`Sent ${title} to ${user?.email}.  Waiting ${delay.toFixed(1)}s before next.`)
 
     await delayPromise(delay * 1000);
   }
-  console.log('Batch successfully sent. Sleeping until next one.')
+  console.log('Batch successfully sent. Restarting ', frequency)
 
 }, { runOnInit: true })
 
