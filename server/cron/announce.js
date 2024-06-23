@@ -36,8 +36,8 @@ export default defineCronHandler(frequency, async () => {
       },
       sends: {
         _none: {
-          title: {
-            _eq: title
+          issue: {
+            _eq: issueId
           }
         }
       }
