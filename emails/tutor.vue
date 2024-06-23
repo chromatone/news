@@ -157,16 +157,18 @@ const ago = useTimeAgo(() => props.date);
       </li>
     </ul>
     </p>
+    <p>Ready to fuel your curiosity, ignite your creativity, or streamline your development process? Let's leverage my
+      expertise to make your endeavors a success!</p>
     <p style="margin:2em 0">
       <a style="margin: 2em 1em; border-radius: .5em;padding: .5em 1em;background: #333;color: #fff;text-decoration: none;box-shadow: #444 2px 2px 2px 2px;"
         href="https://tutor.chromatone.center">Book a session now</a>
     </p>
 
-    <h3>📹 New videos on our channel</h3>
+    <h3>📹 New videos on YouTube</h3>
     <p>
       You can watch these updates overview on
       the
-      Chromatone YouTube channel
+      <a href="https://www.youtube.com/@chromatone.center">Chromatone channel</a>
     <ul>
       <li> <a href="https://www.youtube.com/watch?v=GgXa7fXwfu8">Part 1</a> - 30 minutes of updates overview</li>
       <li><a href="https://www.youtube.com/watch?v=WpHOSiO47bY">Part 2</a> - much deeper dive into code of the latest
@@ -174,19 +176,19 @@ const ago = useTimeAgo(() => props.date);
     </ul>
     </p>
 
-    <h3>🛍️ New stickers upcoming in the shop in July</h3>
+    <h3>🛍️ New stickers upcoming </h3>
     <p>
-      A new batch with fresh designs of our instrument stickers is coming to our
-      <a href="https://shop.chromatone.center/">Sticker Shop</a> in a couple of weeks!
+      In July we await for a new batch of freshly designed and printed instrument stickers to arrive to our
+      <a href="https://shop.chromatone.center/">Sticker Shop</a>.
     </p>
     <p>
-      Stay tuned for updates at <a href="https://instagram.com/chromatone.center/">@chromatone.center</a>
-      Instagram.
+      To stay tuned with recent updates consider following us on Instagram <a
+        href="https://instagram.com/chromatone.center/">@chromatone.center</a>.
     </p>
     <hr style="margin: 1em 0" />
     <p>
       Denis Starov,<br />
-      your Visual Music tutor<br />
+      Author, developer and tutor<br />
       <a href="https://chromatone.center">chromatone.center</a>
     </p>
 
