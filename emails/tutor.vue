@@ -91,12 +91,13 @@ const ago = useTimeAgo(() => props.date);
     <ul>
       <li><a href="https://chromatone.center/practice/rhythm/circle/">Circular Metronome</a> got scroll wheel controls
         to have clickless operations on touchpads and mouse inputs</li>
-      <li>As well as basic color dials for <a href="https://chromatone.center/practice/color/cmyk/">CMYK</a> and <a
-          href="https://chromatone.center/practice/color/rgb/">RGB</a> color models. <a
+      <li>As well as touch friendly color dials for <a href="https://chromatone.center/practice/color/cmyk/">CMYK</a>
+        and <a href="https://chromatone.center/practice/color/rgb/">RGB</a> color models along with <a
           href="https://chromatone.center/practice/color/hsl/">HSL</a> and <a
-          href="https://chromatone.center/practice/color/lab/">LAB</a> to become scroll friendly next. </li>
+          href="https://chromatone.center/practice/color/lab/">LAB</a> that were also redesigned with wheel in mind.
+        Enjoy silent operations!</li>
       <li> The sliding navigation and settings panels got a back button, which
-        helps with closing them on mobile and when over touch enabled
+        helps with closing them on mobile and when open over touch enabled
         apps and iframes. </li>
     </ul>
 
