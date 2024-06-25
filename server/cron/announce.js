@@ -3,8 +3,6 @@ import { createDirectus, createItem, readItems, rest, staticToken, readSingleton
 import nodemailer from 'nodemailer'
 import { useCompiler } from '#vue-email'
 
-const title = 'tutorship'
-
 const debug = false
 
 const frequency = 'everyFifteenMinutes'
@@ -89,7 +87,7 @@ export default defineCronHandler(frequency, async () => {
 
     let delay = 10 + Math.random() * 30
 
-    console.log(`Sent ${title} to ${user?.email}.  Waiting ${delay.toFixed(1)}s before next.`)
+    console.log(`Sent to ${user?.email}.  Waiting ${delay.toFixed(1)}s before next.`)
 
     await delayPromise(delay * 1000);
   }

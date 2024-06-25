@@ -87,18 +87,18 @@ const ago = useTimeAgo(() => props.date);
       </li>
     </ul>
 
-    <h3>🌱 Old but gold</h3>
+    <h3>🛞 Wheel controls in apps</h3>
     <ul>
       <li><a href="https://chromatone.center/practice/rhythm/circle/">Circular Metronome</a> got scroll wheel controls
-        to have clickless operations on touchpads and mouse inputs</li>
-      <li>As well as touch friendly color dials for <a href="https://chromatone.center/practice/color/cmyk/">CMYK</a>
-        and <a href="https://chromatone.center/practice/color/rgb/">RGB</a> color models along with <a
+        that enable clickless changes of rhythm parameters on touchpads and mouse inputs. </li>
+      <li>Dials in our color model web-apps also got wheel controls update. All main models are available to scroll
+        around: <a href="https://chromatone.center/practice/color/cmyk/">CMYK</a>
+        and <a href="https://chromatone.center/practice/color/rgb/">RGB</a>, <a
           href="https://chromatone.center/practice/color/hsl/">HSL</a> and <a
-          href="https://chromatone.center/practice/color/lab/">LAB</a> that were also redesigned with wheel in mind.
-        Enjoy silent operations!</li>
-      <li> The sliding navigation and settings panels got a back button, which
-        helps with closing them on mobile and when open over touch enabled
-        apps and iframes. </li>
+          href="https://chromatone.center/practice/color/lab/">LAB</a>.
+        Enjoy silent color space operations 🎨</li>
+      <li> Sliding navigation and settings panels got a new component refactoring to bring more stable and consistent
+        UI across the entire web-site. </li>
     </ul>
 
     <h3>🎉 Tutorship Program Now Open</h3>
@@ -125,10 +125,11 @@ const ago = useTimeAgo(() => props.date);
     </p>
     <p>
       There are
-      pictures, articles, web-apps and now this - a more direct way to connect with my students - in-person guidance
+      digital designs, printed items, research articles, interactive web-apps and now this - a more direct and humane
+      way to connect with other seekers - in-person guidance
       meetings with QnA,
       theory explanations, project advice,
-      complex music topics explorations and audiovisual apps.
+      complex music explorations, audiovisual apps for any of your topics to cover.
     </p>
 
     <p>
@@ -136,7 +137,7 @@ const ago = useTimeAgo(() => props.date);
       and inspiration.
     </p>
 
-    <h4>One-on-one online sessions to improve skills and understanding</h4>
+    <h4>One hour one-on-one online session to improve your skills, understanding and projects</h4>
 
     <p>
     <h4>My primary tutorship subjects</h4>
@@ -158,8 +159,37 @@ const ago = useTimeAgo(() => props.date);
       </li>
     </ul>
     </p>
-    <p>Ready to fuel your curiosity, ignite your creativity, or streamline your development process? Let's leverage my
-      expertise to make your endeavors a success!</p>
+
+    <p>
+      Will you benefit from our tutorship sessions?
+    <ul>
+      <li>
+        Yes, if you <b>study music theory</b> and look for ways to better understand its somewhat obscure
+        concepts.
+      </li>
+      <li>
+        Yes, if you like to <b>improvise with others</b> and want to get better at it from both the performer and
+        the
+        conductor perspectives, learn how to initiate jams and play with other musicians around you.
+      </li>
+      <li>
+        Yes, if you <b>create art</b> and search for ways to interconnect senses in your multimedia
+        projects.
+      </li>
+      <li>
+        Yes, if you <b>develop web-apps</b> and seek for open-source tools to build your interactive multimedia
+        experiences.
+      </li>
+      <li>
+        And yes if you've already seen the <a href="https://chromatone.center/">chromatone.center</a> web-site and
+        <b>want
+          to get more</b> benefits from
+        it's features.
+      </li>
+    </ul>
+
+    I'm here to fuel your curiosity, ignite your creativity and streamline your development processes. Let's leverage my
+    expertise to make your endeavors a success!</p>
     <p style="margin:2em 0">
       <a style="margin: 2em 1em; border-radius: .5em;padding: .5em 1em;background: #333;color: #fff;text-decoration: none;box-shadow: #444 2px 2px 2px 2px;"
         href="https://tutor.chromatone.center">Book a session now</a>
