@@ -4,9 +4,8 @@ import nodemailer from 'nodemailer'
 import { useCompiler } from '#vue-email'
 
 const debug = false
-
 const frequency = 'everyFifteenMinutes'
-
+const limit = 6
 const issueId = '447eee5b-4c6b-4ed3-9fcb-1887f1cfa78e'
 
 export default defineCronHandler(frequency, async () => {
@@ -26,7 +25,7 @@ export default defineCronHandler(frequency, async () => {
 
   const users = await db.request(readItems('users', {
     fields: ['*', 'sends.*'],
-    limit: 5,
+    limit,
     sort: ['date_created'],
     filter: {
       status: {
@@ -43,6 +42,7 @@ export default defineCronHandler(frequency, async () => {
   }))
 
   console.log(`New batch of ${users.length} emails is ready to be sent`)
+
 
 
   const transporter = nodemailer.createTransport({
@@ -64,9 +64,9 @@ export default defineCronHandler(frequency, async () => {
     })
 
     const options = {
-      from: 'bot@chromatone.center',
+      from: 'hi@chromatone.center',
       to: user?.email,
-      subject: 'Chromatone Tutorship starting',
+      subject: 'Chromatone Updates: June 2024',
       html: template.html,
       headers: {
         'Precedence': 'bulk',

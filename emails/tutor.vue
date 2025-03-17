@@ -73,16 +73,16 @@ const ago = useTimeAgo(() => props.date);
     <h3>🧪 New sequencing experiments</h3>
 
     <ul>
-      <li><a href="https://chromatone.center/practice/sequencing/matter/">Matter</a> - the physical simulation
+      <li><a href="https://chromatone.center/practice/generative/matter/">Matter</a> - the physical simulation
         sequencer playground
       </li>
-      <li><a href="https://chromatone.center/practice/sequencing/numbers/">Number sequences</a> - sonification of
+      <li><a href="https://chromatone.center/practice/generative/numbers/">Number sequences</a> - sonification of
         famous mathematical number sequences
       </li>
-      <li><a href="https://chromatone.center/practice/sequencing/pendulums/">Pendulums</a> - Chaos theory sequencer for
+      <li><a href="https://chromatone.center/practice/generative/pendulums/">Pendulums</a> - Chaos theory sequencer for
         random, but deterministic arpeggios.
       </li>
-      <li><a href="https://chromatone.center/practice/sequencing/bounce/">Bouncing sinusoids</a> - the ensemble of
+      <li><a href="https://chromatone.center/practice/generative/bounce/">Bouncing sinusoids</a> - the ensemble of
         slightly shifted beatings.
       </li>
     </ul>
